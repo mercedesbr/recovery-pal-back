@@ -42,10 +42,9 @@ exports.createUser = async function (user) {
     
     var newUser = new Patient({
         name: user.name,
+        lastName: user.lastName,
         email: user.email,
-        password: hashedPassword,
-        mascota: user.mascota,
-        telefono: user.telefono
+        password: hashedPassword
     })
     var filtro = {
         email: user.email
