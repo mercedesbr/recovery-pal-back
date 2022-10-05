@@ -2,9 +2,8 @@ var mongoose = require('mongoose')
 var mongoosePaginate = require('mongoose-paginate')
 
 var ExerciseSchema = new mongoose.Schema({
-    idExercise: Number,
     instructions: Number,
-    idDoctor: Number,
+    idDoctor: { type: mongoose.Types.ObjectId, ref: 'doctor' },
     videoTitle: String,
     videoURL: String
 

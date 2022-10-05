@@ -16,7 +16,7 @@ exports.getExerciseById = async function (req, res, next){
     try {
         var gettedExercise = await ExerciseService.getExercise(filter)
         console.log(gettedExercise)
-        if (gettedExercise === null) {
+        if ( !gettedExercise) {
             return res.status(400).json({status: 400., message: "Exercise ID does not exist"})
         } else {
 
