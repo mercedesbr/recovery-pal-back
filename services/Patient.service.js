@@ -1,5 +1,5 @@
 // Gettign the Newly created Mongoose Model we just created 
-var User = require('../models/User.model');
+var Patient = require('../models/Patient.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 
@@ -16,7 +16,7 @@ exports.loginUser = async function (user) {
     try {
         // Find the User 
         console.log("login:",user)
-        var _details = await User.findOne({
+        var _details = await Patient.findOne({
             email: user.email
         });
         if (!_details) throw Error("Usuario no encontrado")
@@ -40,12 +40,11 @@ exports.createUser = async function (user) {
     // Creating a new Mongoose Object by using the new keyword
     var hashedPassword = bcrypt.hashSync(user.password, 8);
     
-    var newUser = new User({
+    var newUser = new Patient({
         name: user.name,
+        lastName: user.lastName,
         email: user.email,
-        password: hashedPassword,
-        mascota: user.mascota,
-        telefono: user.telefono
+        password: hashedPassword
     })
     var filtro = {
         email: user.email
@@ -74,7 +73,7 @@ exports.createUser = async function (user) {
 exports.chequearMail = async function (query){
     try {
         console.log("Query",query)
-        var user = await User.findOne(query)
+        var user = await Patient.findOne(query)
         var bandera = user ? false : true
         return bandera
         
@@ -92,7 +91,7 @@ exports.updatePass = async function (user) {
     var id = {email :user.email}
     try {
         //Find the old User Object by the Id
-        var oldUser = await User.findOne(id);
+        var oldUser = await Patient.findOne(id);
     } catch (e) {
         throw Error("Error occured while Finding the User")
     }
@@ -117,7 +116,7 @@ exports.updatePass = async function (user) {
 
 exports.getUserByEmail = async function (filtro){
     try {
-        var user = await User.findOne(filtro)
+        var user = await Patient.findOne(filtro)
         return user;
     } catch (e) {
         console.log(e)

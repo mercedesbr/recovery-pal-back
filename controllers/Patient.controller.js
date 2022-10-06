@@ -1,4 +1,4 @@
-var UserService = require('../services/user.service');
+var PatientService = require('../services/Patient.service');
 var mongoose = require('mongoose')
 var MailController = require('./mail.controller')
 
@@ -16,7 +16,7 @@ exports.loginUser = async function (req, res, next) {
     }
     try {
         // Calling the Service function with the new object from the Request Body
-        var loginUser = await UserService.loginUser(User);
+        var loginUser = await PatientService.loginUser(User);
         return res.status(201).json({loginUser, message: "Succesfully login"})
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
@@ -29,14 +29,13 @@ exports.createUser = async function (req, res, next) {
     console.log("llegue al controller",req.body)
     var User = {
         name: req.body.name,
+        lastName: req.body.lastName,
         email: req.body.email,
         password: req.body.password,
-        mascota: req.body.mascota,
-        telefono: req.body.telefono
     }
     try {
         // Calling the Service function with the new object from the Request Body
-        var createdUser = await UserService.createUser(User)
+        var createdUser = await PatientService.createUser(User)
         return res.status(201).json({createdUser, message: "Succesfully Created User"})
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
@@ -57,7 +56,7 @@ exports.updatePass = async function (req, res, next) {
         mascota: req.body.mascota
     }
     try {
-        var updatedUser = await UserService.updatePass(User)
+        var updatedUser = await PatientService.updatePass(User)
         return res.status(200).json({status: 200, data: updatedUser, message: "Succesfully Updated User"})
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message})
@@ -75,7 +74,7 @@ exports.recuperarPass = async function (req, res, next) {
         password: password
     }
     try {
-        var updatedUser = await UserService.updatePass(User)
+        var updatedUser = await PatientService.updatePass(User)
         MailController.sendEmail(req,password, res, next);
         return res.status(200).json({status: 200, data: updatedUser, message: "Email succesfully sent"})
     } catch (e) {
@@ -89,7 +88,7 @@ exports.getUserByEmail = async function (req, res, next){
     }
     var filtro = {email : req.body.email}
     try {
-        var updatedUser = await UserService.getUserByEmail(filtro)
+        var updatedUser = await PatientService.getUserByEmail(filtro)
         return res.status(200).json({status: 200, data: updatedUser, message: "Succesfully Updated User"})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})
