@@ -6,7 +6,7 @@ var PedroBController = require('../../controllers/pedroB.controller');
 // Authorize each API with middleware and map to the Controller Functions
 /* GET users listing. */
 
-router.post('/getExerciseById', PedroBController.getExerciseById)
+router.get('/getExerciseById/:_id', PedroBController.getExerciseById)
 
 
 

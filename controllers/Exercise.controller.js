@@ -1,5 +1,6 @@
 var ExerciseService = require('../services/exercise.service');
-var mongoose = require('mongoose')
+var mongoose = require('mongoose');
+const { ObjectId } = require('mongoose');
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -8,10 +9,10 @@ _this = this;
 
 
 exports.getExerciseById = async function (req, res, next){
-    if (!req.body.idExercise) {
+    if (!req.params._id) {
         return res.status(400).json({status: 400., message: "Exercise ID be present"})
     }
-    var filter = {idExercise : parseInt(req.body.idExercise)}
+    var filter = {_id : req.params._id}
     console.log(filter)
     try {
         var gettedExercise = await ExerciseService.getExercise(filter)
