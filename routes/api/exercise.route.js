@@ -4,12 +4,16 @@ var ExerciseController = require('../../controllers/Exercise.controller');
 var IdPresent = function (req, res, next) {
     return res.status(400).json({status : 400, message: "Exercise ID be present"})
 }
+var OnlyBodyPresent = function (req, res, next) {
+    return res.status(400).json({status : 400, message: "Only body allowed"})
+}
 
 // Authorize each API with middleware and map to the Controller Functions
 /* GET users listing. */
 router.get('/', IdPresent)
 router.delete('/', IdPresent)
 router.put('/', IdPresent)
+router.post('/:_', OnlyBodyPresent)
 
 
 

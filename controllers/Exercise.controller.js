@@ -46,8 +46,8 @@ exports.putExerciseById = async function (req, res, next){
             return res.status(400).json({status: 400, message: "Exercise ID does not exist"})
         } else {
             //Necesito haber hecho el get antes de hacer el PUT?
-            ExerciseService.putExercise(filter, changes)
-            return res.status(200).json({status: 200, message: "Succesfully putted Exercise"})
+            changedExercise = await ExerciseService.putExercise(filter, changes)
+            return res.status(200).json({status: 200, data:changedExercise, message: "Succesfully putted Exercise"})
         }
     } catch (e) {
             return res.status(400).json({status: 400, message: e.message})

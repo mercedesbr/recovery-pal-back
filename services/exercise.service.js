@@ -12,7 +12,7 @@ _this = this
 exports.getExercise = async function (filtro) {
     try {
         //var exercise = await Exercise.findOne(filtro)
-        var exercise = await Exercise.find(filtro)
+        var exercise = await Exercise.findOne(filtro)
 
         return exercise;
     } catch (e) {
@@ -27,16 +27,31 @@ exports.getExercise = async function (filtro) {
 
 exports.putExercise = async function (filter, changes) {
     try {
-        //var exercise = await Exercise.findOne(filtro)
+        var exercise = await Exercise.findOne(filter)
+        
+        if (changes.videoURL)  {
+            exercise.videoURL = changes.videoURL
+        }
+        if (changes.videoTitle)  {
+            exercise.videoTitle = changes.videoTitle
+        }
+        if (changes.instructions)  {
+            exercise.instructions = changes.instructions
+        }
+        if (changes.doctor)  {
+            exercise.doctor = changes.doctor
+        }
         /*
-        // No necesito ahora que me devuelva el que insertó. Por alguna razon el PUT no me lo muestra en data.
-
         var exercise = await Exercise.findOneAndUpdate(filter, changes, {
             new: true
           })
-          */
-        await Exercise.updateOne(filter, changes)
-        return ;
+        */
+
+        
+        changedExercise = exercise.save()
+        
+        //await Exercise.findOneAndUpdate(filter, {$set : changes}, {new: true})
+        return changedExercise;
     } catch (e) {
         if (e.name === "CastError") {
             throw Error("Incorrect ID")
