@@ -11,7 +11,7 @@ router.get('/test', function(req, res, next) {
   });
 
 router.post('/registration', DoctorController.createUser)
-
+router.post('/getDoctor',DoctorController.getDoctor)
 
 
 

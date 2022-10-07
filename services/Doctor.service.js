@@ -59,3 +59,15 @@ exports.chequearMail = async function (query){
         throw Error('Error while checking email');
     }
 }
+
+exports.getDoctor = async function (query){
+    try {
+        console.log("Query",query)
+        var doctor = await Doctor.findOne(query)
+        return doctor
+    } catch (e) {
+        // return a Error message describing the reason 
+        console.log("error services",e)
+        throw Error('Error while finding doctor');
+    }
+}

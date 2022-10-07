@@ -10,13 +10,13 @@ router.get('/test', function(req, res, next) {
     res.send('Llegaste a la ruta de  api/patient.routes');
   });
 
-router.post('/login', PatientController.loginUser)
+
 router.post('/registration', PatientController.createUser)
-router.put('/updatePass',Authorization, PatientController.updatePass)
-router.post('/getUserByEmail',Authorization, PatientController.getUserByEmail)
+router.post('/getPatient', PatientController.getPatient)
+
 router.post('/recuperarPass',PatientController.recuperarPass)
-
-
+router.post('/login', PatientController.loginUser)
+router.put('/updatePass',Authorization, PatientController.updatePass)
 
 
 // Export the Router
