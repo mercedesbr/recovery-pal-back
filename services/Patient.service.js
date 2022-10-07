@@ -76,8 +76,6 @@ exports.chequearMail = async function (query){
         var user = await Patient.findOne(query)
         var bandera = user ? false : true
         return bandera
-        
-
     } catch (e) {
         // return a Error message describing the reason 
         console.log("error services",e)
@@ -85,7 +83,17 @@ exports.chequearMail = async function (query){
     }
 }
 
-
+exports.getPatient = async function (query){
+    try {
+        console.log("Query",query)
+        var patient = await Patient.findOne(query)
+        return patient
+    } catch (e) {
+        // return a Error message describing the reason 
+        console.log("error services",e)
+        throw Error('Error while finding patient');
+    }
+}
 
 exports.updatePass = async function (user) {
     var id = {email :user.email}
