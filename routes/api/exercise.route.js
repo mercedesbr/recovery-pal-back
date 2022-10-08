@@ -10,6 +10,7 @@ var OnlyBodyPresent = function (req, res, next) {
 
 // Authorize each API with middleware and map to the Controller Functions
 /* GET users listing. */
+router.get('/getExercisesByVideoTitleMatch/', ExerciseController.getExercisesByVideoTitleMatch)
 router.get('/', IdPresent)
 router.delete('/', IdPresent)
 router.put('/', IdPresent)

@@ -1,4 +1,4 @@
-var ExerciseService = require('../services/exercise.service');
+var ExerciseService = require('../services/Exercise.service');
 var mongoose = require('mongoose');
 const { ObjectId } = require('mongoose');
 
@@ -106,3 +106,25 @@ exports.deleteExerciseById = async function (req, res, next){
 
     }
 }
+
+
+exports.getExercisesByVideoTitleMatch = async function (req, res, next){
+    if (!req.query.videoTitle) {
+        return res.status(400).json({status: 400., message: "Video Title be present"})
+    }
+    var filter = {videoTitle :{ "$regex": req.query.videoTitle, "$options": "i" }}
+    try {
+        var gettedExercises = await ExerciseService.getExercisesByVideoTitleMatch(filter)
+        if ( !gettedExercises) {
+            return res.status(400).json({status: 400, data: [], message: "Error getting exercises"})
+        } else {
+            return res.status(200).json({status: 200, data: gettedExercises, message: "Succesfully getted Exercises"})
+        }
+    } catch (e) {
+        
+            return res.status(400).json({status: 400, message: e.message})
+
+    }
+}
+
+

@@ -48,7 +48,7 @@ exports.putExercise = async function (filter, changes) {
         */
 
         
-        changedExercise = exercise.save()
+        changedExercise = await exercise.save()
         
         //await Exercise.findOneAndUpdate(filter, {$set : changes}, {new: true})
         return changedExercise;
@@ -72,6 +72,8 @@ exports.postExercise = async function (inserts) {
     }
 }
 
+
+
 exports.deleteExercise = async function (filtro) {
     try {
         //var exercise = await Exercise.findOne(filtro)
@@ -88,3 +90,17 @@ exports.deleteExercise = async function (filtro) {
 }
 
 
+exports.getExercisesByVideoTitleMatch = async function (filtro) {
+    try {
+        //var exercise = await Exercise.findOne(filtro)
+        var exercises = await Exercise.find(filtro)
+
+        return exercises;
+    } catch (e) {
+        if (e.name === "CastError") {
+            throw Error("Incorrect ID")
+        }
+        console.log(e)
+        throw Error("And Error occured while getting the Exercises");
+    }
+}
