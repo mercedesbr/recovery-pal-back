@@ -63,7 +63,6 @@ exports.putExercise = async function (filter, changes) {
 
 exports.postExercise = async function (inserts) {
     try {
-        var inserted 
         newExercise = new Exercise(inserts)
         newExercise.save()
         return newExercise;
