@@ -5,7 +5,7 @@ var router = express.Router()
 
 var exercises = require('./api/exercise.route')
 
-router.use('/exercise', exercises);
+router.use('/exercises', exercises);
 
 var patients = require('./api/patient.route')
 var doctors = require('./api/doctor.route')
