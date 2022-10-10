@@ -9,7 +9,8 @@ var FeedbackSchema = new mongoose.Schema({
     pain: Boolean,
     improve: Boolean,
     exercisesDone: [mongoose.Types.ObjectId]
-}, { timestamps: true })
+}, { timestamps: true }
+)
 
 FeedbackSchema.plugin(mongoosePaginate)
 const Feedback = mongoose.model('Feedback', FeedbackSchema)

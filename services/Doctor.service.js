@@ -63,7 +63,16 @@ exports.chequearMail = async function (query){
 exports.getDoctor = async function (query){
     try {
         console.log("Query",query)
-        var doctor = await Doctor.findOne(query)
+        var doctor = await Doctor.findOne(query).populate([{
+            path: 'routines',
+            model: 'Routine'
+        }, {
+            path: 'exercises',
+            model: 'Exercise'
+        }, {
+            path: 'patients',
+            model: 'Patient'
+        }])
         return doctor
     } catch (e) {
         // return a Error message describing the reason 

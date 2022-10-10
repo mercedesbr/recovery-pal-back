@@ -3,8 +3,9 @@ var mongoosePaginate = require('mongoose-paginate')
 
 var ObjectId = mongoose.Schema.ObjectId;
 var RoutineSchema = new mongoose.Schema({
-    pacient: mongoose.Types.ObjectId,
-    doctor: mongoose.Types.ObjectId,
+    patient: { type: mongoose.Types.ObjectId, ref: 'patient' },
+    doctor: { type: mongoose.Types.ObjectId, ref: 'doctor' },
+    name: String,
     exercises: [{ type: mongoose.Types.ObjectId, ref: 'exercise' }],
     feedbacks: [{ type: mongoose.Types.ObjectId, ref: 'feedback' }],
     schedule:{
