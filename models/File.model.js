@@ -7,5 +7,5 @@ var imageSchema = mongoose.Schema({
     file: {type: String}
     }
 );
-
+ 
 var Image = module.exports = mongoose.model('Image', imageSchema);
