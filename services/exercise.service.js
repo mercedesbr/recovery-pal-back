@@ -1,6 +1,7 @@
 // Gettign the Newly created Mongoose Model we just created 
 var Exercise = require('../models/Exercise.model');
 var jwt = require('jsonwebtoken');
+var Doctor = require('../models/Doctor.model');
 
 var mongoose = require('mongoose')
 
@@ -63,7 +64,7 @@ exports.putExercise = async function (filter, changes) {
 
 exports.postExercise = async function (inserts) {
     try {
-        newExercise = new Exercise(inserts)
+        var newExercise = new Exercise(inserts)
         newExercise.save()
         return newExercise;
     } catch (e) {
@@ -102,5 +103,31 @@ exports.getExercisesByVideoTitleMatch = async function (filtro) {
         }
         console.log(e)
         throw Error("And Error occured while getting the Exercises");
+    }
+}
+
+exports.addExerciseInDoctor = async function (exercise){
+    try {
+        var doctor = await Doctor.findOne(exercise.doctor)
+        doctor.exercises.push(exercise._id)
+        var upDoc = await doctor.save();
+        return upDoc
+    } catch (e) {
+        // return a Error message describing the reason 
+        console.log("error services",e)
+        throw Error('Error while adding Exercise in Doctor');
+    }
+}
+
+exports.deleteExerciseInDoctor = async function (exercise){
+    try {
+        var doctor = await Doctor.findOne(exercise.doctor)
+        doctor.exercises.pull(exercise._id)
+        var upDoc = await doctor.save();
+        return upDoc
+    } catch (e) {
+        // return a Error message describing the reason 
+        console.log("error services",e)
+        throw Error('Error while deletting Exercise in Doctor');
     }
 }
