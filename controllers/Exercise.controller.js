@@ -49,14 +49,16 @@ exports.putExerciseById = async function (req, res, next) {
     videoURL: req.body.videoURL,
   };
   try {
-    var gettedExercise = await ExerciseService.getExercise(filter);
-    if (!gettedExercise) {
+    var gotExercise = await ExerciseService.getExercise(filter);
+    if (!gotExercise) {
       return res
         .status(400)
         .json({ status: 400, message: "Exercise ID does not exist" });
     } else {
       //Necesito haber hecho el get antes de hacer el PUT?
+      deleteDoctor = await ExerciseService.deleteExerciseInDoctor(gotExercise)
       changedExercise = await ExerciseService.putExercise(filter, changes);
+      insertedDoctor = await ExerciseService.addExerciseInDoctor(changedExercise)
       return res
         .status(200)
         .json({
@@ -102,6 +104,7 @@ exports.postExercise = async function (req, res, next) {
   try {
     //Necesito haber hecho el get antes de hacer el PUT?
     var posttedExercise = await ExerciseService.postExercise(inserted);
+    var doctor = await ExerciseService.addExerciseInDoctor(inserted)
     return res
       .status(200)
       .json({
@@ -123,6 +126,7 @@ exports.deleteExerciseById = async function (req, res, next) {
   var filter = { _id: req.params._id };
   try {
     var deletedExercise = await ExerciseService.deleteExercise(filter);
+    var doctor = await ExerciseService.deleteExerciseInDoctor(deletedExercise)
     if (!deletedExercise) {
       return res
         .status(400)
