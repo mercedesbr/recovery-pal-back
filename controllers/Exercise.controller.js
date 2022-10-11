@@ -104,7 +104,7 @@ exports.postExercise = async function (req, res, next) {
   try {
     //Necesito haber hecho el get antes de hacer el PUT?
     var posttedExercise = await ExerciseService.postExercise(inserted);
-    var doctor = await ExerciseService.addExerciseInDoctor(inserted)
+    var doctor = await ExerciseService.addExerciseInDoctor(posttedExercise._id)
     return res
       .status(200)
       .json({
