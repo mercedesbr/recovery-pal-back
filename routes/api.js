@@ -3,13 +3,16 @@ var express = require('express')
 
 var router = express.Router()
 
-var exercises = require('./api/exercise.route')
-
-router.use('/exercises', exercises);
-
 var patients = require('./api/patient.route')
 var doctors = require('./api/doctor.route')
+var exercises = require('./api/exercise.route')
+var routines = require('./api/routine.route')
+var feedbacks = require('./api/feedback.route')
 
 router.use('/patients', patients);
 router.use('/doctors', doctors);
+router.use('/exercises', exercises);
+router.use('/routines', routines);
+router.use('/feedbacks', feedbacks);
+
 module.exports = router;

@@ -1,25 +1,29 @@
-var DoctorService = require('../services/Doctor.service');
+var RoutineService = require('../services/Routine.service');
 var mongoose = require('mongoose')
-var MailController = require('./mail.controller')
 
 // Saving the context of this module inside the _the variable
 _this = this;
 
 // Async Controller function to get the To do List
 
-exports.createUser = async function (req, res, next) {
+exports.createRoutine = async function (req, res, next) {
     // Req.Body contains the form submit values.
     console.log("llegue al controller",req.body)
-    var User = {
+    var exercises = req.body.exercises.map(x => mongoose.Types.ObjectId(x))
+    var Routine = {
+        patient: mongoose.Types.ObjectId(req.body.patient),
+        doctor: mongoose.Types.ObjectId(req.body.doctor),
         name: req.body.name,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: req.body.password,
+        exercises: exercises,
+        weeks: parseInt(req.body.weeks),
+        times: parseInt(req.body.times)
     }
     try {
         // Calling the Service function with the new object from the Request Body
-        var createdUser = await DoctorService.createUser(User)
-        return res.status(201).json({createdUser, message: "Succesfully Created User"})
+        var createdRoutine = await RoutineService.createRoutine(Routine)
+        var doctor = await RoutineService.addRoutineInDoctor(createdRoutine)
+        var patient = await RoutineService.addRoutineInPatient(createdRoutine)
+        return res.status(201).json({createdRoutine, message: "Succesfully Created Routine"})
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         console.log(e)
@@ -27,7 +31,7 @@ exports.createUser = async function (req, res, next) {
     }
 }
 
-exports.getDoctor = async function (req, res, next) {
+exports.getRoutine = async function (req, res, next){
     // Req.Body contains the form submit values.
     console.log("llegue al controller",req.body)
     var filter = {
@@ -35,8 +39,8 @@ exports.getDoctor = async function (req, res, next) {
     }
     try {
         // Calling the Service function with the new object from the Request Body
-        var doctor = await DoctorService.getDoctor(filter)
-        return res.status(200).json({doctor, message: "Succesfully retrieved Doctor"})
+        var routine = await RoutineService.getRoutine(filter)
+        return res.status(200).json({routine, message: "Succesfully retrieved Routine"})
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         console.log(e)

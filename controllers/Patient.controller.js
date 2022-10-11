@@ -82,16 +82,20 @@ exports.recuperarPass = async function (req, res, next) {
     }
 }
 
-exports.getUserByEmail = async function (req, res, next){
-    if (!req.body.email) {
-        return res.status(400).json({status: 400., message: "Email be present"})
+exports.getPatient = async function (req, res, next){
+    // Req.Body contains the form submit values.
+    console.log("llegue al controller",req.body)
+    var filter = {
+        _id: mongoose.Types.ObjectId(req.body.id)
     }
-    var filtro = {email : req.body.email}
     try {
-        var updatedUser = await PatientService.getUserByEmail(filtro)
-        return res.status(200).json({status: 200, data: updatedUser, message: "Succesfully Updated User"})
+        // Calling the Service function with the new object from the Request Body
+        var patient = await PatientService.getPatient(filter)
+        return res.status(200).json({patient, message: "Succesfully retrieved Patient"})
     } catch (e) {
-        return res.status(400).json({status: 400., message: e.message})
+        //Return an Error Response Message with Code and the Error Message.
+        console.log(e)
+        return res.status(400).json({status: 400, message: e.message})
     }
 }
 
