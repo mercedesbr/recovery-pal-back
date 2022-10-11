@@ -3,7 +3,7 @@
 node_modules/*
 imagenes/*
 .env/*
-
+.env
 
 # ignore Local ENV File
 # .env  
