@@ -6,7 +6,10 @@ var Authorization = require('../../auth/authorization');
 
 // Authorize each API with middleware and map to the Controller Functions
 /* GET users listing. */
-router.get('/', FeedbackController.getFeedback);
+router.get('/:_id', FeedbackController.getFeedback);
+router.get('/getLastFeedbackByRoutine/:_id', FeedbackController.getLastFeedbackByRoutine);
+router.put('/:_id', FeedbackController.putFeedbackById);
+
 
 // Export the Router
 module.exports = router;
