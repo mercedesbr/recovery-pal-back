@@ -37,7 +37,8 @@ exports.createRoutine = async function (routine) {
 exports.getRoutine = async function (query){
     try {
         console.log("Query",query)
-        var routine = await Routine.find(query).populate([{
+        console.log(typeof(query))
+        var routine = await Routine.findOne({_id:query}).populate([{
             path: 'doctor',
             model: 'Doctor'
         }, {
@@ -49,8 +50,8 @@ exports.getRoutine = async function (query){
         }, {
             path: 'feedbacks',
             model: 'Feedback'
-    }])
-        return routine
+        }])
+    return routine
     } catch (e) {
         // return a Error message describing the reason 
         console.log("error services",e)
