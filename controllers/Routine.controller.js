@@ -33,10 +33,8 @@ exports.createRoutine = async function (req, res, next) {
 
 exports.getRoutine = async function (req, res, next){
     // Req.Body contains the form submit values.
-    console.log("llegue al controller",req.body)
-    var filter = {
-        _id: mongoose.Types.ObjectId(req.body.id)
-    }
+    console.log("llegue al controller getRoutine",req.body)
+    var filter =  mongoose.Types.ObjectId(req.body.id)
     try {
         // Calling the Service function with the new object from the Request Body
         var routine = await RoutineService.getRoutine(filter)
