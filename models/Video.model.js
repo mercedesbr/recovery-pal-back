@@ -10,4 +10,4 @@ var videoSchema = new schema({
 })
 
 const video = mongoose.model('upload', videoSchema);
-module.exports = video;
+module.exports = video; 
